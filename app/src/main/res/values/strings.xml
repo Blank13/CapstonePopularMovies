@@ -6,5 +6,9 @@
 
     <string name="overview">Overview :</string>
     <string name="trailers">Trailers :</string>
+    <string name="reviews">Reviews :</string>
 
+    <string name="reviews_waiting">Loading the Reviews</string>
+    <string name="reviews_not_found">There is no reviews found for this show :(</string>
+    <string name="trials_not_found">There is trials for this show :(</string>
 </resources>

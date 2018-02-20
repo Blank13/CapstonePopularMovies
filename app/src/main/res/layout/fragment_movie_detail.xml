@@ -79,31 +79,69 @@
             android:paddingTop="@dimen/trailer_vertical_margain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/movie_trials"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:scrollbars="none">
+            android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+            <ProgressBar
+                android:id="@+id/movie_trials_progressbar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/trials_found"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trials_not_found"
+                android:textSize="@dimen/normal_size"
+                android:textAlignment="center"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimaryDark"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movie_trials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="none">
+            </android.support.v7.widget.RecyclerView>
+        </FrameLayout>
+
+
 
         <TextView
-            android:text="Reviews :"
+            android:text="@string/reviews"
             android:textSize="@dimen/normal_size"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.mes.udacity.capstonepopularmovies.Utils.SizedListView
-            android:id="@+id/movie_reviews"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:scrollbars="none">
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/movie_reviews_progressbar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/review_found"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews_not_found"
+                android:textSize="@dimen/normal_size"
+                android:textAlignment="center"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimaryDark"/>
+            <com.mes.udacity.capstonepopularmovies.Utils.SizedListView
+                android:id="@+id/movie_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:scrollbars="none">
 
-        </com.mes.udacity.capstonepopularmovies.Utils.SizedListView>
+            </com.mes.udacity.capstonepopularmovies.Utils.SizedListView>
+        </FrameLayout>
+
 
     </LinearLayout>
 </ScrollView>

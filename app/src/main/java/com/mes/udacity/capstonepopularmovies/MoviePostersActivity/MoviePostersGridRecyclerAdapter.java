@@ -41,6 +41,7 @@ public class MoviePostersGridRecyclerAdapter extends RecyclerView.Adapter<MovieP
         Movie movie = movies.get(position);
         Picasso.with(holder.image.getContext())
                 .load(Constants.MOVIE_API_IMAGE_BASE_URL+ movie.getPosterPath())
+                .placeholder(R.drawable.no_image_found)
                 .into(holder.image);
     }
 

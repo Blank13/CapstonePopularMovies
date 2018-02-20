@@ -10,6 +10,11 @@ import android.support.v4.app.FragmentManager;
 import com.mes.udacity.capstonepopularmovies.DetailActivity.MovieDetailFragment;
 import com.mes.udacity.capstonepopularmovies.MoviePostersActivity.MoviePostersFragment;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Created by moham on 2/18/2018.
  */
@@ -56,5 +61,16 @@ public class StaticMethods {
             }
         }
         return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    public static String getBodyString(InputStream inputStream) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response.toString();
     }
 }

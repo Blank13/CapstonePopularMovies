@@ -15,7 +15,10 @@ public class Constants {
     public final static String POSTER_FRAGMENT = "POSTER_FRAGMENT";
     public final static String DETAIL_FRAGMENT = "DETAIL_FRAGMENT";
 
+    public final static String YOUTUBE_VIDEO_BASE_URL = "http://www.youtube.com/watch?v=";
     public final static String YOUTUBE_THUMBNAIL_BASE_URL = "https://img.youtube.com/vi/";
     public final static String YOUTUBE_THUMBNAIL_IMGNUM_URL = "/1.jpg";
+
+    public final static int MOVIE_REVIEWS_LOADER = 10;
 
 }

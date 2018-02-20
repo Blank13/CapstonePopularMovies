@@ -9,14 +9,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -44,11 +46,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mes.udacity.capstonepopularmovies.Utils.StaticMethods.getBodyString;
+
 /**
  * Created by moham on 2/18/2018.
  */
 
-public class MovieDetailFragment extends Fragment implements ReviewsListListener, TrailersListListener, ListItemClickListener{
+public class MovieDetailFragment extends Fragment implements ReviewsListListener,
+        TrailersListListener, ListItemClickListener, LoaderManager.LoaderCallbacks<List<Review>>{
 
     public static final String MOVIE_CALL = "movie";
 
@@ -59,8 +64,12 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
     private TextView date;
     private TextView rate;
     private TextView overView;
+    private TextView trailersFound;
+    private TextView reviewsFound;
     private Button favButton;
     private ImageView image;
+    private ProgressBar trailersProgressBar;
+    private ProgressBar reviewsProgressBar;
 
     private RecyclerView trailers;
     private SizedListView reviews;
@@ -68,11 +77,6 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
     private ReviewsListAdapter reviewsListAdapter;
 
     private boolean firstTime = true;
-
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-
-    }
 
     public interface DetailCallBack{
         void onFavouriteClick();
@@ -96,29 +100,31 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
             movie = gson.fromJson(movieJson, Movie.class);
         }
 
-        scrollView = (ScrollView) view.findViewById(R.id.detail_scroll);
+        scrollView = view.findViewById(R.id.detail_scroll);
 
-        title = (TextView) view.findViewById(R.id.movie_titile);
-        date = (TextView) view.findViewById(R.id.movie_date);
-        rate = (TextView) view.findViewById(R.id.movie_rate);
-        overView = (TextView) view.findViewById(R.id.movie_overview);
+        title = view.findViewById(R.id.movie_titile);
+        date = view.findViewById(R.id.movie_date);
+        rate = view.findViewById(R.id.movie_rate);
+        overView = view.findViewById(R.id.movie_overview);
 
-        favButton = (Button) view.findViewById(R.id.movie_fav_button);
-        if(checkExsistanceInFavourite()){
+        favButton = view.findViewById(R.id.movie_fav_button);
+        if(checkExistenceInFavourite()){
             favButton.setSelected(true);
         }
         initFavouriteAction();
 
-        image = (ImageView) view.findViewById(R.id.movie_image);
-
+        image = view.findViewById(R.id.movie_image);
+        trailersProgressBar = view.findViewById(R.id.movie_trials_progressbar);
+        reviewsProgressBar = view.findViewById(R.id.movie_reviews_progressbar);
         title.setText(movie.getTitle());
-        date.setText(movie.getReleaseDate().toString());
+        date.setText(movie.getReleaseDate());
         rate.setText(Double.toString(movie.getVoteAverage())+"/10");
         overView.setText(movie.getOverView());
 
         trailers = view.findViewById(R.id.movie_trials);
-        reviews = (SizedListView) view.findViewById(R.id.movie_reviews);
-
+        reviews = view.findViewById(R.id.movie_reviews);
+        trailersFound = view.findViewById(R.id.trials_found);
+        reviewsFound = view.findViewById(R.id.review_found);
         Picasso.with(getContext())
                 .load(Constants.MOVIE_API_IMAGE_BASE_URL+ movie.getPosterPath())
                 .into(image);
@@ -147,7 +153,7 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
         super.onActivityCreated(savedInstanceState);
     }
 
-    private boolean checkExsistanceInFavourite() {
+    private boolean checkExistenceInFavourite() {
         if(movie == null){
             return false;
         }
@@ -189,32 +195,77 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
             String id = String.valueOf(movie.getId());
             FetchTrailers fetchTrailers = new FetchTrailers();
             fetchTrailers.execute(id);
-            FetchReviews fetchReviews = new FetchReviews();
-            fetchReviews.execute(id);
+            getLoaderManager().initLoader(Constants.MOVIE_REVIEWS_LOADER,null, this)
+                    .forceLoad();
+        }
+    }
+
+    //Required Implemented methods
+    //Trailer ClickListListener
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Trailer trailer = trailersRecyclerAdapter.getItem(clickedItemIndex);
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(Constants.YOUTUBE_VIDEO_BASE_URL + trailer.getKey()));
+        startActivity(webIntent);
+    }
+    //Reviews Loader
+    @Override
+    public Loader<List<Review>> onCreateLoader(int id, Bundle args) {
+        return new FetchReviewsLoader(getContext(),movie);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Review>> loader, List<Review> data) {
+        if(data != null){
+            onReviewListReady(data);
+        }
+        else {
+            onReviewError("");
         }
     }
 
     @Override
+    public void onLoaderReset(Loader<List<Review>> loader) {
+        reviewsListAdapter.clear();
+    }
+    //Review ListListener
+    @Override
     public void onReviewListReady(List<Review> reviewList) {
+        reviewsProgressBar.setVisibility(View.GONE);
         reviewsListAdapter.updateReviews(reviewList);
+        if(reviewsListAdapter.getCount() > 0) {
+            reviewsFound.setVisibility(View.GONE);
+        }
+        else {
+            reviewsFound.setVisibility(View.VISIBLE);
+        }
         reviews.setExpanded(true);
     }
 
     @Override
     public void onReviewError(String message) {
-
+        reviewsFound.setVisibility(View.VISIBLE);
     }
-
+    //Trailers ListListener
     @Override
     public void onTrailerListReady(List<Trailer> trailerList) {
+        trailersProgressBar.setVisibility(View.GONE);
         trailersRecyclerAdapter.updatetrailers(trailerList);
+        if(trailersRecyclerAdapter.getItemCount() > 0) {
+            trailersFound.setVisibility(View.GONE);
+        }
+        else {
+            trailersFound.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onTrailerError(String message) {
-
+        trailersFound.setVisibility(View.VISIBLE);
     }
 
+    //Async Tasks
     private class FetchTrailers extends AsyncTask<String, Void, List<Trailer>> {
 
         @Override
@@ -275,83 +326,10 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
             if(trailerList != null){
                 onTrailerListReady(trailerList);
             }
-        }
-    }
-
-    private class FetchReviews extends AsyncTask<String, Void, List<Review>>{
-
-        @Override
-        protected List<Review> doInBackground(String... params) {
-            Cursor cursor = getContext().getContentResolver()
-                    .query(MovieContract.ReviewEntry.REVIEW_CONTENT_URI,
-                            null,
-                            MovieContract.ReviewEntry.MOVIE_ID + " = " + movie.getId(),
-                            null,
-                            null);
-            if(cursor != null){
-                if(cursor.getCount() > 0){
-                    List<Review> trailers = new ArrayList<>();
-                    while (cursor.moveToNext()){
-                        Review review = new Review();
-                        review.setAuthor(cursor.getString(
-                                cursor.getColumnIndex(MovieContract.ReviewEntry.REVIEWS_AUTHOR)));
-                        review.setContent(cursor.getString(
-                                cursor.getColumnIndex(MovieContract.ReviewEntry.REVIEWS_CONTENT)));
-                        trailers.add(review);
-                    }
-                    cursor.close();
-                    return trailers;
-                }
-                cursor.close();
-            }
-            HttpURLConnection urlConnection = null;
-            ReviewResponse reviewsResponse;
-
-            final String APPID_PARAM = "api_key";
-            final String TYPE_PARAM = "reviews";
-
-            Uri uri = Uri.parse(Constants.MOVIE_API_BASE_URL).buildUpon()
-                    .appendPath(params[0])
-                    .appendEncodedPath(TYPE_PARAM)
-                    .appendQueryParameter(APPID_PARAM,Constants.MOVIE_API_KEY)
-                    .build();
-            try {
-                URL url = new URL(uri.toString());
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-                Gson gson = new Gson();
-                reviewsResponse = gson.fromJson(
-                        getBodyString(urlConnection.getInputStream()),ReviewResponse.class);
-                return reviewsResponse.getReviews();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Review> reviews) {
-            if(reviews != null){
-                onReviewListReady(reviews);
+            else{
+                onTrailerError("");
             }
         }
-    }
-
-    private String getBodyString(InputStream inputStream) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        return response.toString();
     }
 
     private void addToFavourite() {

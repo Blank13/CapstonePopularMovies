@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mes.udacity.capstonepopularmovies.Utils.StaticMethods.getBodyString;
 import static com.mes.udacity.capstonepopularmovies.Utils.StaticMethods.haveNetworkConnection;
 
 /**
@@ -253,17 +254,6 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
                 onPosterListReady(movies);
                 pages++;
             }
-        }
-
-        private String getBodyString(InputStream inputStream) throws IOException {
-            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return response.toString();
         }
     }
 

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="sort_popular">Sort by Popularity</string>
+    <string name="sort_rating">Sort by Top Rating</string>
+    <string name="favourites">Show favourites</string>
+
+    <string name="overview">Overview :</string>
+    <string name="trailers">Trailers :</string>
+
+</resources>

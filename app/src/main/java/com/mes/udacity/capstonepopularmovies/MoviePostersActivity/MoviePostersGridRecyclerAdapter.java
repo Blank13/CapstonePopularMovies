@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.mes.udacity.capstonepopularmovies.Models.Movie;
 import com.mes.udacity.capstonepopularmovies.R;
 import com.mes.udacity.capstonepopularmovies.Utils.Constants;
+import com.mes.udacity.capstonepopularmovies.Utils.ListItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,10 +23,6 @@ public class MoviePostersGridRecyclerAdapter extends RecyclerView.Adapter<MovieP
     private final static String TAG = MoviePostersGridRecyclerAdapter.class.getSimpleName();
     private static ListItemClickListener listItemClickListener;
     private List<Movie> movies;
-
-    public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex);
-    }
 
     public MoviePostersGridRecyclerAdapter(List<Movie> movies,
                                      ListItemClickListener listItemClickListener) {

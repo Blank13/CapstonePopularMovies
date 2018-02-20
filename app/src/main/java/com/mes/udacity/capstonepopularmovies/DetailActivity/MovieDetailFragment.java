@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.mes.udacity.capstonepopularmovies.R;
 import com.mes.udacity.capstonepopularmovies.Response.ReviewResponse;
 import com.mes.udacity.capstonepopularmovies.Response.TrailerResponse;
 import com.mes.udacity.capstonepopularmovies.Utils.Constants;
+import com.mes.udacity.capstonepopularmovies.Utils.ListItemClickListener;
 import com.mes.udacity.capstonepopularmovies.Utils.SizedListView;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +48,7 @@ import java.util.List;
  * Created by moham on 2/18/2018.
  */
 
-public class MovieDetailFragment extends Fragment implements ReviewsListListener, TrailersListListener{
+public class MovieDetailFragment extends Fragment implements ReviewsListListener, TrailersListListener, ListItemClickListener{
 
     public static final String MOVIE_CALL = "movie";
 
@@ -59,12 +62,17 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
     private Button favButton;
     private ImageView image;
 
-    private SizedListView trailers;
+    private RecyclerView trailers;
     private SizedListView reviews;
-    private TrailersListAdapter trailersListAdapter;
+    private TrailersRecyclerAdapter trailersRecyclerAdapter;
     private ReviewsListAdapter reviewsListAdapter;
 
     private boolean firstTime = true;
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+
+    }
 
     public interface DetailCallBack{
         void onFavouriteClick();
@@ -108,7 +116,7 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
         rate.setText(Double.toString(movie.getVoteAverage())+"/10");
         overView.setText(movie.getOverView());
 
-        trailers = (SizedListView) view.findViewById(R.id.movie_trials);
+        trailers = view.findViewById(R.id.movie_trials);
         reviews = (SizedListView) view.findViewById(R.id.movie_reviews);
 
         Picasso.with(getContext())
@@ -117,19 +125,19 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
 
         initTrailersAndReviews();
 
-        if(trailersListAdapter == null){
-            trailersListAdapter = new TrailersListAdapter(getContext(),new ArrayList<Trailer>());
+        if(trailersRecyclerAdapter == null){
+            trailersRecyclerAdapter = new TrailersRecyclerAdapter(new ArrayList<Trailer>(), this);
         }
         if(reviewsListAdapter == null){
             reviewsListAdapter = new ReviewsListAdapter(getContext(),new ArrayList<Review>());
         }
-
-        trailers.setFocusable(false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false);
         reviews.setFocusable(false);
-        trailers.setAdapter(trailersListAdapter);
+        trailers.setLayoutManager(layoutManager);
+        trailers.setAdapter(trailersRecyclerAdapter);
         reviews.setAdapter(reviewsListAdapter);
 
-        initTrailerAction();
         return view;
     }
 
@@ -186,18 +194,6 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
         }
     }
 
-    private void initTrailerAction() {
-        trailers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Trailer trailer = (Trailer) trailersListAdapter.getItem(position);
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.youtube.com/watch?v=" + trailer.getKey()));
-                startActivity(webIntent);
-            }
-        });
-    }
-
     @Override
     public void onReviewListReady(List<Review> reviewList) {
         reviewsListAdapter.updateReviews(reviewList);
@@ -211,8 +207,7 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
 
     @Override
     public void onTrailerListReady(List<Trailer> trailerList) {
-        trailersListAdapter.updatetrailers(trailerList);
-        trailers.setExpanded(true);
+        trailersRecyclerAdapter.updatetrailers(trailerList);
     }
 
     @Override
@@ -382,8 +377,8 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
             values.put(MovieContract.MovieEntry.MOVIE_OVER_VIEW, movie.getOverView());
             getContext().getContentResolver()
                     .insert(MovieContract.MovieEntry.MOVIE_CONTENT_URI, values);
-            for(int i = 0; i < trailersListAdapter.getCount(); i++){
-                Trailer trailer = (Trailer) trailersListAdapter.getItem(i);
+            for(int i = 0; i < trailersRecyclerAdapter.getItemCount(); i++){
+                Trailer trailer = trailersRecyclerAdapter.getItem(i);
                 values.clear();
                 values.put(MovieContract.TrailerEntry.MOVIE_ID, movie.getId());
                 values.put(MovieContract.TrailerEntry.TRAILER_KEY, trailer.getKey());

@@ -25,6 +25,7 @@ import com.mes.udacity.capstonepopularmovies.Models.Movie;
 import com.mes.udacity.capstonepopularmovies.R;
 import com.mes.udacity.capstonepopularmovies.Response.MovieResponse;
 import com.mes.udacity.capstonepopularmovies.Utils.Constants;
+import com.mes.udacity.capstonepopularmovies.Utils.ListItemClickListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,7 +42,7 @@ import static com.mes.udacity.capstonepopularmovies.Utils.StaticMethods.haveNetw
  * Created by moham on 2/18/2018.
  */
 
-public class MoviePostersFragment extends Fragment implements MoviePostersListListener, MoviePostersGridRecyclerAdapter.ListItemClickListener {
+public class MoviePostersFragment extends Fragment implements MoviePostersListListener, ListItemClickListener {
 
     private static final String TAG = MoviePostersFragment.class.getSimpleName();
 
@@ -111,9 +112,9 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_posters,container,false);
-        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        progressBar = view.findViewById(R.id.progress_bar);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.posters_gridview);
+        recyclerView = view.findViewById(R.id.posters_gridview);
         if(posterGridRecyclerAdapter == null){
             posterGridRecyclerAdapter = new MoviePostersGridRecyclerAdapter(new ArrayList<Movie>(),this);
         }

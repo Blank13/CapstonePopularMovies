@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/trailer_vertical_margain"
+    android:paddingBottom="@dimen/trailer_vertical_margain"
+    android:paddingLeft="@dimen/trailer_horizontal_margin"
+    android:paddingRight="@dimen/trailer_horizontal_margin"
+    >
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="20"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/trailer_image_width"
+        android:layout_height="@dimen/trailer_image_height"
         android:id="@+id/trailer_image"
         android:src="@drawable/player"
         />
 
     <TextView
         android:id="@+id/trailer_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/trailer_image_width"
         android:layout_height="wrap_content"
-        android:layout_weight="80"
+        android:lines="1"
         android:textSize="@dimen/normal_size" />
 
 </LinearLayout>

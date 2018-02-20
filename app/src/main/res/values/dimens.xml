@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Activity margins and padding -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Text sizes -->
     <dimen name="very_big_size">40sp</dimen>
     <dimen name="big_size">30sp</dimen>
     <dimen name="small_size">15sp</dimen>
     <dimen name="normal_size">20sp</dimen>
+    <!-- Trailer item -->
+    <dimen name="trailer_horizontal_margin">8dp</dimen>
+    <dimen name="trailer_vertical_margain">12dp</dimen>
+    <dimen name="trailer_image_width">120dp</dimen>
+    <dimen name="trailer_image_height">90dp</dimen>
+
 </resources>

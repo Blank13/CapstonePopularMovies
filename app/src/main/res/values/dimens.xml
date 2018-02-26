@@ -11,7 +11,7 @@
     <!-- Trailer item -->
     <dimen name="trailer_horizontal_margin">8dp</dimen>
     <dimen name="trailer_vertical_margain">12dp</dimen>
-    <dimen name="trailer_image_width">120dp</dimen>
-    <dimen name="trailer_image_height">90dp</dimen>
+    <dimen name="trailer_image_width">200dp</dimen>
+    <dimen name="trailer_image_height">152dp</dimen>
 
 </resources>

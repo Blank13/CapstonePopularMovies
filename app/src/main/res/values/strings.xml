@@ -4,11 +4,15 @@
     <string name="sort_rating">Sort by Top Rating</string>
     <string name="favourites">Show favourites</string>
 
-    <string name="overview">Overview :</string>
     <string name="trailers">Trailers :</string>
     <string name="reviews">Reviews :</string>
 
     <string name="reviews_waiting">Loading the Reviews</string>
     <string name="reviews_not_found">There is no reviews found for this show :(</string>
     <string name="trials_not_found">There is trials for this show :(</string>
+
+    <string name="default_widget_text">This will show the list of your favourite movies when you
+        add one to your favourite</string>
+
+    <string name="favorite_movies_intent_key">FAVORITE_MOVIES_INTENT_KEY</string>
 </resources>

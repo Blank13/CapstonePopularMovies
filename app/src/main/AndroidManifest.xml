@@ -12,23 +12,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MoviePostersActivity.MoviePostersActivity">
+        <activity android:name=".moviepostersactivity.MoviePostersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity.MovieDetailActivity"
-            android:parentActivityName=".MoviePostersActivity.MoviePostersActivity">
+        <activity android:name=".detailactivity.MovieDetailActivity"
+            android:parentActivityName=".moviepostersactivity.MoviePostersActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MoviePostersActivity.MoviePostersActivity"/>
+                android:value=".moviepostersactivity.MoviePostersActivity"/>
         </activity>
         <provider
             android:authorities="com.mes.udacity.capstonepopularmovies"
-            android:name="com.mes.udacity.capstonepopularmovies.DataBase.MovieContentProvider"
-            android:exported="false"/>
+            android:name="com.mes.udacity.capstonepopularmovies.database.MovieContentProvider"
+            android:exported="true"/>
+        <service android:name=".widget.FavoriteWidgetService" />
+        <service
+            android:name=".widget.FavoriteWidgetListService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <receiver android:name=".widget.FavoriteWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_movies_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

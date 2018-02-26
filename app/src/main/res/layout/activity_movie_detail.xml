@@ -4,6 +4,6 @@
     android:id="@+id/activity_movie_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mes.udacity.capstonepopularmovies.DetailActivity.MovieDetailActivity">
+    tools:context="com.mes.udacity.capstonepopularmovies.detailactivity.MovieDetailActivity">
 
 </FrameLayout>

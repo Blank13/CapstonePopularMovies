@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.mes.udacity.capstonepopularmovies.database.MovieContract;
 import com.mes.udacity.capstonepopularmovies.database.MovieDBHelper;
@@ -44,6 +46,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private AdView mAdView;
     private MoviePostersGridRecyclerAdapter posterGridRecyclerAdapter;
     private int pages = 1;
     private String sortType = "popular";
@@ -111,6 +114,9 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
         progressBar = view.findViewById(R.id.progress_bar);
 
         recyclerView = view.findViewById(R.id.posters_gridview);
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         if(posterGridRecyclerAdapter == null){
             posterGridRecyclerAdapter = new MoviePostersGridRecyclerAdapter(new ArrayList<Movie>(),this);
         }

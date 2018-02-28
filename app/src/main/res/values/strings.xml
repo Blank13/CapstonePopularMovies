@@ -22,4 +22,8 @@
         add one to your favourite</string>
 
     <string name="favorite_movies_intent_key">FAVORITE_MOVIES_INTENT_KEY</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="favorite_button_description">
+        Clicking on this star shape will either add movie to your favorites or remove it.
+    </string>
 </resources>

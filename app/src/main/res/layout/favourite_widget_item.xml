@@ -13,8 +13,7 @@
             android:id="@+id/widget_fav_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/no_image_found"
-            android:contentDescription="TODO" />
+            android:src="@drawable/no_image_found" />
 
         <LinearLayout
             android:layout_width="match_parent"

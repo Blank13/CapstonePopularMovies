@@ -15,7 +15,7 @@ import com.mes.udacity.capstonepopularmovies.R;
 
 public class FavoriteWidgetService extends IntentService {
 
-    public static final String ACTION_UPDATE_FAVORITE_WIDGET
+    private static final String ACTION_UPDATE_FAVORITE_WIDGET
             = "com.mes.udacity.capstonepopularmovies.action.update_favourite_widget";
 
     public FavoriteWidgetService() {

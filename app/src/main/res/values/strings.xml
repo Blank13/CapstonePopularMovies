@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">Popular Movies</string>
+
+    <string name="welcome">Welcome to Movies World\nPlease SignIn to your google account</string>
+    <string name="user_welcome">Welcome </string>
+    <string name="app_open">Enter the Movies World</string>
+    <string name="signout">Sign Out</string>
     <string name="sort_popular">Sort by Popularity</string>
     <string name="sort_rating">Sort by Top Rating</string>
     <string name="favourites">Show favourites</string>
-
+    <string name="connection_failed">Failed to connect to your Google account</string>
     <string name="trailers">Trailers :</string>
     <string name="reviews">Reviews :</string>
+
+    <string name="loading">Loading....</string>
 
     <string name="reviews_waiting">Loading the Reviews</string>
     <string name="reviews_not_found">There is no reviews found for this show :(</string>

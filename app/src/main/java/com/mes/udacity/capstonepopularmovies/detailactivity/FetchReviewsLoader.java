@@ -24,9 +24,9 @@ import static com.mes.udacity.capstonepopularmovies.utils.StaticMethods.getBodyS
  * Created by moham on 2/20/2018.
  */
 
-public class FetchReviewsLoader extends AsyncTaskLoader<List<Review>> {
+class FetchReviewsLoader extends AsyncTaskLoader<List<Review>> {
 
-    private Movie movie;
+    private final Movie movie;
 
     public FetchReviewsLoader(Context context, Movie movie) {
         super(context);

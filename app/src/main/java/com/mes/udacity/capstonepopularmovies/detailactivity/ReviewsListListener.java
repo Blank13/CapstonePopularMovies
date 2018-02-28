@@ -8,7 +8,7 @@ import java.util.List;
  * Created by moham on 2/18/2018.
  */
 
-public interface ReviewsListListener {
+interface ReviewsListListener {
 
     void onReviewListReady(List<Review> reviewList);
 

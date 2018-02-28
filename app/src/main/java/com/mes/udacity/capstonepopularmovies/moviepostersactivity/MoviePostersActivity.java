@@ -1,6 +1,7 @@
 package com.mes.udacity.capstonepopularmovies.moviepostersactivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import com.mes.udacity.capstonepopularmovies.detailactivity.MovieDetailActivity;
 import com.mes.udacity.capstonepopularmovies.detailactivity.MovieDetailFragment;
 import com.mes.udacity.capstonepopularmovies.R;
 import com.mes.udacity.capstonepopularmovies.utils.Constants;
+import com.mes.udacity.capstonepopularmovies.widget.FavoriteWidgetService;
 
 import static com.mes.udacity.capstonepopularmovies.utils.StaticMethods.attachPostersFragment;
 
@@ -29,6 +31,9 @@ public class MoviePostersActivity extends AppCompatActivity implements MoviePost
         attachPostersFragment(fragmentManager,R.id.movie_posters_container);
         if(findViewById(R.id.activity_detail_container) != null){
             mTwoPane = true;
+        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            FavoriteWidgetService.startActionUpdateFavouriteWidgets(getApplicationContext());
         }
     }
 

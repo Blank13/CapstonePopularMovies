@@ -21,7 +21,6 @@ import java.util.List;
 
 public class TrailersRecyclerAdapter extends RecyclerView.Adapter<TrailersRecyclerAdapter.TrailerViewHolder> {
 
-    private final static String TAG = TrailersRecyclerAdapter.class.getSimpleName();
     private static ListItemClickListener listItemClickListener;
     private List<Trailer> trailers;
 
@@ -57,8 +56,8 @@ public class TrailersRecyclerAdapter extends RecyclerView.Adapter<TrailersRecycl
     }
 
     public static class TrailerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView image;
-        private TextView name;
+        private final ImageView image;
+        private final TextView name;
 
         public TrailerViewHolder(View itemView) {
             super(itemView);

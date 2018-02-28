@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/login_user_image"
+        android:layout_width="@dimen/login_image_width"
+        android:layout_height="@dimen/login_image_hieght"
+        android:src="@drawable/no_user"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/login_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/trailer_vertical_margain"
+        android:textSize="@dimen/normal_size"
+        android:text="@string/welcome"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/activity_vertical_margin">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/login_google_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+        </com.google.android.gms.common.SignInButton>
+
+        <Button
+            android:id="@+id/login_signout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center"
+            android:text="@string/signout"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/login_enter_app_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_open"
+        android:textAllCaps="false"
+        android:visibility="gone"/>
+
+</LinearLayout>

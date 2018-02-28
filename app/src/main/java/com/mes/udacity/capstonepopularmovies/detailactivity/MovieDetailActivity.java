@@ -11,14 +11,12 @@ import static com.mes.udacity.capstonepopularmovies.utils.StaticMethods.attachDe
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         attachDetailFragment(fragmentManager,R.id.activity_movie_detail_container);
     }
 

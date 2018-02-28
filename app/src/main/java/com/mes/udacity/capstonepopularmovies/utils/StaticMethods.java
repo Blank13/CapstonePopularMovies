@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.mes.udacity.capstonepopularmovies.detailactivity.MovieDetailFragment;
+import com.mes.udacity.capstonepopularmovies.loginactivity.LoginFragment;
 import com.mes.udacity.capstonepopularmovies.moviepostersactivity.MoviePostersFragment;
 
 import java.io.BufferedReader;
@@ -20,6 +21,16 @@ import java.io.InputStreamReader;
  */
 
 public class StaticMethods {
+
+    public static void attachLoginFragment(FragmentManager fragmentManager, int container) {
+        Fragment fragment = fragmentManager.findFragmentByTag(Constants.LOGIN_FRAGMENT);
+        if (fragment == null) {
+            fragment = new LoginFragment();
+        }
+        fragmentManager.beginTransaction()
+                .replace(container, fragment, Constants.LOGIN_FRAGMENT)
+                .commit();
+    }
 
     public static void attachPostersFragment(FragmentManager fragmentManager, int container) {
         Fragment fragment = fragmentManager.findFragmentByTag(Constants.POSTER_FRAGMENT);

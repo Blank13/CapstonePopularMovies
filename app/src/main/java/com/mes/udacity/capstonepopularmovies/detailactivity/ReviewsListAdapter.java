@@ -17,12 +17,10 @@ import java.util.List;
  * Created by moham on 2/18/2018.
  */
 
-public class ReviewsListAdapter extends BaseAdapter {
-
-    private final static String TAG = ReviewsListAdapter.class.getSimpleName();
+class ReviewsListAdapter extends BaseAdapter {
 
     private List<Review> reviews;
-    private Context context;
+    private final Context context;
 
     public ReviewsListAdapter(Context context, List<Review> reviews) {
         this.reviews = reviews;

@@ -11,7 +11,7 @@ public class MovieContract {
 
     public final static String AUTHORITY = "com.mes.udacity.capstonepopularmovies";
 
-    public final static Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+    private final static Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     public static class MovieEntry implements BaseColumns {
 

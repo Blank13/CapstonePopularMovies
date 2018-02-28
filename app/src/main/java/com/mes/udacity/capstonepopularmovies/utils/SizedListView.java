@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 public class SizedListView extends ListView {
 
-    boolean expanded = false;
+    private boolean expanded = false;
 
     public SizedListView(Context context)
     {
@@ -28,7 +28,7 @@ public class SizedListView extends ListView {
         super(context, attrs, defStyle);
     }
 
-    public boolean isExpanded()
+    private boolean isExpanded()
     {
         return expanded;
     }
@@ -53,8 +53,8 @@ public class SizedListView extends ListView {
         }
     }
 
-    public void setExpanded(boolean expanded)
+    public void setExpanded()
     {
-        this.expanded = expanded;
+        this.expanded = true;
     }
 }

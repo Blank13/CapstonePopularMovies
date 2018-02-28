@@ -17,13 +17,13 @@ import android.support.annotation.Nullable;
 
 public class MovieContentProvider extends ContentProvider {
 
-    public final static int MOVIE = 100;
-    public final static int TRAILER = 200;
-    public final static int REVIEW = 300;
+    private final static int MOVIE = 100;
+    private final static int TRAILER = 200;
+    private final static int REVIEW = 300;
 
-    public final static UriMatcher sUriMatcher = buildUriMatcher();
+    private final static UriMatcher sUriMatcher = buildUriMatcher();
 
-    public static UriMatcher buildUriMatcher() {
+    private static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.MovieEntry.MOVIES_TABLE, MOVIE);

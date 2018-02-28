@@ -20,9 +20,8 @@ import java.util.List;
 
 public class MoviePostersGridRecyclerAdapter extends RecyclerView.Adapter<MoviePostersGridRecyclerAdapter.PosterViewHolder> {
 
-    private final static String TAG = MoviePostersGridRecyclerAdapter.class.getSimpleName();
     private static ListItemClickListener listItemClickListener;
-    private List<Movie> movies;
+    private final List<Movie> movies;
 
     public MoviePostersGridRecyclerAdapter(List<Movie> movies,
                                      ListItemClickListener listItemClickListener) {
@@ -55,7 +54,7 @@ public class MoviePostersGridRecyclerAdapter extends RecyclerView.Adapter<MovieP
     }
 
     public static class PosterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView image;
+        private final ImageView image;
 
         public PosterViewHolder(View itemView) {
             super(itemView);

@@ -30,8 +30,8 @@ public class FavoriteWidgetListService extends RemoteViewsService {
 
 class FavoriteMoviesListRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    Context context;
-    Cursor cursor;
+    private final Context context;
+    private Cursor cursor;
 
     public FavoriteMoviesListRemoteViewFactory(Context context) {
         this.context = context;

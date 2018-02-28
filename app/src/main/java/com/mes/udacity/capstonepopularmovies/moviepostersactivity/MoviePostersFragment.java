@@ -42,8 +42,6 @@ import static com.mes.udacity.capstonepopularmovies.utils.StaticMethods.haveNetw
 
 public class MoviePostersFragment extends Fragment implements MoviePostersListListener, ListItemClickListener {
 
-    private static final String TAG = MoviePostersFragment.class.getSimpleName();
-
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private MoviePostersGridRecyclerAdapter posterGridRecyclerAdapter;

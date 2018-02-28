@@ -17,8 +17,8 @@ import com.mes.udacity.capstonepopularmovies.R;
 
 public class FavoriteWidgetProvider extends AppWidgetProvider{
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_widget);
         Intent intent = new Intent(context, FavoriteWidgetListService.class);
@@ -33,7 +33,7 @@ public class FavoriteWidgetProvider extends AppWidgetProvider{
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Start the intent service update widget action, the service takes care of updating the widgets UI
-        //This chec because the service doesn't work on Oreo.
+        //This check because the service doesn't work on Oreo.
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             FavoriteWidgetService.startActionUpdateFavouriteWidgets(context);
         }

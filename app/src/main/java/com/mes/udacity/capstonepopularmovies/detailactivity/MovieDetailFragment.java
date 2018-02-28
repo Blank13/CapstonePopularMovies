@@ -1,7 +1,5 @@
 package com.mes.udacity.capstonepopularmovies.detailactivity;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RemoteViews;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,7 +34,6 @@ import com.mes.udacity.capstonepopularmovies.response.TrailerResponse;
 import com.mes.udacity.capstonepopularmovies.utils.Constants;
 import com.mes.udacity.capstonepopularmovies.utils.ListItemClickListener;
 import com.mes.udacity.capstonepopularmovies.utils.SizedListView;
-import com.mes.udacity.capstonepopularmovies.widget.FavoriteWidgetProvider;
 import com.mes.udacity.capstonepopularmovies.widget.FavoriteWidgetService;
 import com.squareup.picasso.Picasso;
 
@@ -60,24 +56,15 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
 
     private Movie movie;
 
-    private ScrollView scrollView;
-    private TextView title;
-    private TextView date;
-    private TextView rate;
-    private TextView overView;
     private TextView trailersFound;
     private TextView reviewsFound;
     private Button favButton;
-    private ImageView image;
     private ProgressBar trailersProgressBar;
     private ProgressBar reviewsProgressBar;
 
-    private RecyclerView trailers;
     private SizedListView reviews;
     private TrailersRecyclerAdapter trailersRecyclerAdapter;
     private ReviewsListAdapter reviewsListAdapter;
-
-    private boolean firstTime = true;
 
     public interface DetailCallBack{
         void onFavouriteClick();
@@ -101,12 +88,10 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
             movie = gson.fromJson(movieJson, Movie.class);
         }
 
-        scrollView = view.findViewById(R.id.detail_scroll);
-
-        title = view.findViewById(R.id.movie_titile);
-        date = view.findViewById(R.id.movie_date);
-        rate = view.findViewById(R.id.movie_rate);
-        overView = view.findViewById(R.id.movie_overview);
+        TextView title = view.findViewById(R.id.movie_titile);
+        TextView date = view.findViewById(R.id.movie_date);
+        TextView rate = view.findViewById(R.id.movie_rate);
+        TextView overView = view.findViewById(R.id.movie_overview);
 
         favButton = view.findViewById(R.id.movie_fav_button);
         if(checkExistenceInFavourite()){
@@ -114,15 +99,16 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
         }
         initFavouriteAction();
 
-        image = view.findViewById(R.id.movie_image);
+        ImageView image = view.findViewById(R.id.movie_image);
         trailersProgressBar = view.findViewById(R.id.movie_trials_progressbar);
         reviewsProgressBar = view.findViewById(R.id.movie_reviews_progressbar);
         title.setText(movie.getTitle());
         date.setText(movie.getReleaseDate());
-        rate.setText(Double.toString(movie.getVoteAverage())+"/10");
+        String rateText =  movie.getVoteAverage()+"/10";
+        rate.setText(rateText);
         overView.setText(movie.getOverView());
 
-        trailers = view.findViewById(R.id.movie_trials);
+        RecyclerView trailers = view.findViewById(R.id.movie_trials);
         reviews = view.findViewById(R.id.movie_reviews);
         trailersFound = view.findViewById(R.id.trials_found);
         reviewsFound = view.findViewById(R.id.review_found);
@@ -192,6 +178,7 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
     }
 
     private void initTrailersAndReviews() {
+        boolean firstTime = true;
         if(firstTime){
             String id = String.valueOf(movie.getId());
             FetchTrailers fetchTrailers = new FetchTrailers();
@@ -254,7 +241,7 @@ public class MovieDetailFragment extends Fragment implements ReviewsListListener
         else {
             reviewsFound.setVisibility(View.VISIBLE);
         }
-        reviews.setExpanded(true);
+        reviews.setExpanded();
     }
 
     @Override

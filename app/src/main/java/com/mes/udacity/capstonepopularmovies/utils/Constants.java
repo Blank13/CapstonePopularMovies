@@ -12,6 +12,7 @@ public class Constants {
     public final static String MOVIE_API_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185/";
 
     //Constants for fragments tags
+    public final static String LOGIN_FRAGMENT = "LOGIN_FRAGMENT";
     public final static String POSTER_FRAGMENT = "POSTER_FRAGMENT";
     public final static String DETAIL_FRAGMENT = "DETAIL_FRAGMENT";
 

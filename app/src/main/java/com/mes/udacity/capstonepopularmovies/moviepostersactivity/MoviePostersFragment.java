@@ -49,7 +49,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     private AdView mAdView;
     private MoviePostersGridRecyclerAdapter posterGridRecyclerAdapter;
     private int pages = 1;
-    private String sortType = "popular";
+    private String sortType;
     private boolean firstTime = true;
 
     public interface Callback {
@@ -63,8 +63,9 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     @Override
     public void onStart() {
         super.onStart();
+        sortType = getString(R.string.sort_type_popular);
         if(haveNetworkConnection(getActivity())){
-            if(sortType != "show"){
+            if(sortType != getString(R.string.sort_type_show)){
                 updateMovies(sortType);
             }
             else{
@@ -77,10 +78,10 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
         else {
             if(firstTime){
                 firstTime = false;
-                Toast.makeText(getActivity(),"No Internet Connection Opening the Favourites",
+                Toast.makeText(getActivity(),getString(R.string.no_internet_connection),
                         Toast.LENGTH_SHORT).show();
             }
-            sortType = "show";
+            sortType = getString(R.string.sort_type_show);
             getStoredMovies();
         }
     }
@@ -147,7 +148,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_popular_sort:
-                sortType = "popular";
+                sortType = getString(R.string.sort_type_popular);
                 progressBar.setVisibility(View.VISIBLE);
                 posterGridRecyclerAdapter = new MoviePostersGridRecyclerAdapter(new ArrayList<Movie>(), this);
                 recyclerView.setAdapter(posterGridRecyclerAdapter);
@@ -156,7 +157,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
                 updateMovies(sortType);
                 return true;
             case R.id.action_rating_sort:
-                sortType = "top_rated";
+                sortType = getString(R.string.sort_type_top_rated);
                 progressBar.setVisibility(View.VISIBLE);
                 posterGridRecyclerAdapter = new MoviePostersGridRecyclerAdapter(new ArrayList<Movie>(), this);
                 recyclerView.setAdapter(posterGridRecyclerAdapter);
@@ -165,7 +166,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
                 updateMovies(sortType);
                 return true;
             case R.id.action_show_favourite:
-                sortType = "show";
+                sortType = getString(R.string.sort_type_show);
                 progressBar.setVisibility(View.VISIBLE);
                 posterGridRecyclerAdapter = new MoviePostersGridRecyclerAdapter(new ArrayList<Movie>(), this);
                 recyclerView.setAdapter(posterGridRecyclerAdapter);
@@ -181,15 +182,15 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     public void onPosterListReady(List<Movie> movieList) {
         progressBar.setVisibility(View.GONE);
         if(movieList == null){
-            Toast.makeText(getActivity(),"No Internet connection/nLoading the Favourites"
+            Toast.makeText(getActivity(),getString(R.string.no_connecetion_load_favorites)
                     , Toast.LENGTH_SHORT).show();
-            sortType = "show";
+            sortType = getString(R.string.sort_type_show);
             getStoredMovies();
         }
-        else if(sortType.equals("show")){
+        else if(sortType.equals(getString(R.string.sort_type_show))){
             posterGridRecyclerAdapter.updatePosters(movieList);
         }
-        else if (pages <= 15 && !sortType.equals("show")) {
+        else if (pages <= 15 && !sortType.equals(getString(R.string.sort_type_show))) {
             posterGridRecyclerAdapter.updatePosters(movieList);
             updateMovies(sortType);
         }
@@ -204,7 +205,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     private void updateMovies(String sort){
         FetchMoviesData fetchMoviesData = new FetchMoviesData();
         if(sort == null){
-            sort = "popular";
+            sort = getString(R.string.sort_type_popular);
         }
         if(pages < 15){
             fetchMoviesData.execute(sort);
@@ -232,7 +233,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
             try {
                 URL url = new URL(uri.toString());
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod(getString(R.string.get_method));
                 urlConnection.connect();
                 Gson gson = new Gson();
                 movieResponse = gson.fromJson(getBodyString(urlConnection.getInputStream())
@@ -259,7 +260,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
     }
 
     public void onFavouriteChange(){
-        if(sortType.equalsIgnoreCase("show")){
+        if(sortType.equalsIgnoreCase(getString(R.string.sort_type_show))){
             getStoredMovies();
             ((Callback)getActivity()).onChangeSort();
         }
@@ -303,7 +304,7 @@ public class MoviePostersFragment extends Fragment implements MoviePostersListLi
             posterGridRecyclerAdapter.clear();
             if(movies != null){
                 if(movies.size() == 0){
-                    Toast.makeText(getActivity(),"There is no Favourites",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getString(R.string.no_favorites),Toast.LENGTH_LONG).show();
                 }
                 onPosterListReady(movies);
             }

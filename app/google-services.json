@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "943549703270",
+    "firebase_url": "https://capstonepopularmovies.firebaseio.com",
+    "project_id": "capstonepopularmovies",
+    "storage_bucket": "capstonepopularmovies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943549703270:android:f60555cf20224518",
+        "android_client_info": {
+          "package_name": "com.mes.udacity.capstonepopularmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943549703270-4sm9709o76bq62jptu0964vg2slrvpea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mes.udacity.capstonepopularmovies",
+            "certificate_hash": "63f5f434998b190e1af2afe3133a69e01d362597"
+          }
+        },
+        {
+          "client_id": "943549703270-veiaarh5mnn3e9aeoohs9a4odr1sm80c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHyn0QY2dIPnXyayIg7xtQyM87E1_kdCk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943549703270-veiaarh5mnn3e9aeoohs9a4odr1sm80c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
